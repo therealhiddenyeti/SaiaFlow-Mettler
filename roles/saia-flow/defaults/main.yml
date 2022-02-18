@@ -20,7 +20,7 @@ directory_list:
   - "{{ errors_dir }}"
 
 # scripts
-watch_incoming_sh: "{{ base_dir }}/watch_incoming.sh"
+watch_incoming_sh: "{{ base_dir }}/watch-incoming.sh"
 influxdb_sh: "{{ base_dir }}/post2InfluxDB.sh"
 
 # packages to deploy

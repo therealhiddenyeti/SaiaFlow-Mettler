@@ -24,7 +24,7 @@
     mode: "0744"
     backup: yes
   loop:
-    - watch_incoming.sh.j2
+    - watch-incoming.sh.j2
     - post2InfluxDB.sh.j2
   register: watch_incoming_output
 
