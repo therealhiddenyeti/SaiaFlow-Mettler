@@ -17,14 +17,14 @@
     mode: "0600"
     backup: yes
 
-- name: deploy watch_incoming_sh-incoming script
+- name: deploy scripts
   template:
     src: "{{ item }}"
     dest:  "{{ base_dir }}/{{item | basename | regex_replace('\\.j2$', '') }}"
     mode: "0744"
     backup: yes
   loop:
-    - watch_incoming_sh-incoming.sh.j2
+    - watch_incoming.sh-incoming.sh.j2
     - post2InfluxDB.sh.j2
   register: watch_incoming_output
 
