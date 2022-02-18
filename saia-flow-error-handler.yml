@@ -1,0 +1,15 @@
+---
+- name: Check for files in errors directory on Dimensioners and reprocess
+  hosts: [dimensioners]
+  #become: yes
+
+  tasks:
+    - name: find files in the /opt/saia_flow/errors/ directory
+      find:
+        paths: /opt/saia_flow/errors/
+        file_type: file
+      register: errorFiles2Reprocess
+
+    - name: move the file back to /opt/saia_flow/incoming directory
+      command: mv {{ item.path }} /opt/saia_flow/incoming
+      with_items: "{{ errorFiles2Reprocess.files }}"

@@ -1,0 +1,3 @@
+---
+- name: install saia-flow (may require reboot)
+  include_tasks: install.yml

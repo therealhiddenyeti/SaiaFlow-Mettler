@@ -1,0 +1,19 @@
+#!/bin/bash
+
+while getopts f:d:e: flag
+do
+    case "${flag}" in
+        f) file=${OPTARG};;
+        d) date=${OPTARG};;
+        e) elapsedTime=${OPTARG};;
+    esac
+done
+
+curl --request POST \
+"{{ influxdb_url }}?org=SAIA&bucket=dimftp&precision=ns" \
+  --header "Authorization: Token {{ influxdb_token }}" \
+  --header "Content-Type: text/plain; charset=utf-8" \
+  --header "Accept: application/json" \
+  --data-binary "
+    dimftp,file=$file,host=`hostname` processedDate=$date,duration=$elapsedTime
+    "

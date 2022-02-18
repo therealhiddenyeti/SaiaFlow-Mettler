@@ -1,0 +1,15 @@
+#!/bin/bash
+MINWAIT=10
+MAXWAIT=30
+
+
+host=`hostname`
+for ((i=1;i<=20;i++));
+do
+   file=${host}_$(date +%s)
+   sleeptime=$((MINWAIT+RANDOM % (MAXWAIT-MINWAIT)))
+   sleep $sleeptime
+   dd if=/dev/urandom of=/tmp/"$file" bs=512 count=$sleeptime status=none
+   mv /tmp/"$file" {{ incoming_dir }}
+done
+exit 0

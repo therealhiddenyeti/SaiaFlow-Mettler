@@ -1,0 +1,13 @@
+[Unit]
+ Description=/etc/rc.local Compatibility
+ ConditionPathExists=/etc/rc.local
+
+[Service]
+ Type=simple
+ Restart=always
+ ExecStart=/etc/rc.local start
+ TimeoutSec=0
+ RemainAfterExit=yes
+
+[Install]
+ WantedBy=multi-user.target

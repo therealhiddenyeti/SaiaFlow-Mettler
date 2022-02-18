@@ -1,0 +1,16 @@
+---
+- name: Check for files in errors directory on Dimensioners and reprocess
+  hosts: [dimensioners]
+  #become: yes
+
+  tasks:
+    - name: find files in the /opt/saia_flow/errors/ directory
+      find:
+        paths: /opt/saia_flow/errors/
+        file_type: file
+      register: errorFiles2Reprocess
+
+    - name: failures found
+      fail:
+        msg: "There 1 or more error files to be reprocessed on {{ ansible_host }}."
+      when: errorFiles2Reprocess.matched > 0

@@ -1,0 +1,28 @@
+---
+- name: Install Saia Flow Tester on Dimensioners
+  hosts: [dimensioners]
+  #become: yes
+  vars:
+    testing_dir: /opt/saia_flow/tester/
+    incoming_dir: /opt/saia_flow/incoming/
+
+  tasks:
+    - name: create required directories
+      file:
+        path: "{{ testing_dir }}"
+        state: directory
+        mode: '0755'
+        
+    - name: deploy test script
+      template:
+        src: roles/saia-flow/templates/randomSizeFileGenerator.sh.j2
+        dest: "{{ testing_dir }}/randomSizeFileGenerator.sh"
+        mode: "0744"
+        backup: yes
+      
+    - name: start test script
+      command: "{{ testing_dir }}/randomSizeFileGenerator.sh"
+
+
+
+

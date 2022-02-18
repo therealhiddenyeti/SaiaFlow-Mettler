@@ -1,0 +1,26 @@
+#!/bin/bash
+SOURCE=`hostname`
+TARGET={{ incoming_dir }}
+PROCESSED={{ processed_dir }}
+ERROR={{ errors_dir }}
+BASEDIR={{ base_dir }}
+
+declare -i endTime endtime duration
+inotifywait -m -e create -e moved_to --format "%f" $TARGET \
+        | while read FILENAME
+                do
+                        startTime=`date +%s%3N`
+                        now=$startTime
+                        #echo Image from $hostname and Processing $FILENAME, for processing
+                        rclone copy -q  "$TARGET/$FILENAME" saia:
+                        rc=$?
+                        if [ $rc -ne 0 ];
+                        then
+                                mv "$TARGET/$FILENAME" "$ERROR/$FILENAME"
+                        else
+                                endTime=`date +%s%3N`
+                                duration=$endTime-$startTime
+                                mv "$TARGET/$FILENAME" "$PROCESSED/$FILENAME"
+                                {{ influxdb_sh }} -f "$FILENAME" -d "$now" -e "$duration"
+                        fi
+                done

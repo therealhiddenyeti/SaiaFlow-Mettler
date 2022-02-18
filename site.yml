@@ -1,0 +1,7 @@
+---
+- name: Install Saia Flow on Dimensioners
+  hosts: [dimensioners]
+  #become: yes
+
+  roles:
+  - saia-flow 

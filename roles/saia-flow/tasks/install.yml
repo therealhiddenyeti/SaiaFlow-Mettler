@@ -1,0 +1,70 @@
+---
+- name: Install a list of packages
+  apt:
+    pkg: "{{ package_list }}"
+
+- name: create required directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: '0755'
+  with_items: "{{ directory_list }}"
+
+- name: deploy rclone.conf
+  template:
+    src: rclone.conf.j2
+    dest: "{{ rclone_dir }}/rclone.conf"
+    mode: "0600"
+    backup: yes
+
+- name: deploy watch_incoming_sh-incoming script
+  template:
+    src: "{{ item }}"
+    dest:  "{{ base_dir }}/{{item | basename | regex_replace('\\.j2$', '') }}"
+    mode: "0744"
+    backup: yes
+  loop:
+    - watch_incoming_sh-incoming.sh.j2
+    - post2InfluxDB.sh.j2
+  register: watch_incoming_output
+
+- name: deploy rc.local
+  copy:
+    src: rc.local
+    dest: /etc/
+    mode: "0744"
+    backup: yes
+  register: rc_local_output
+
+- name: deploy rc-local.service
+  copy:
+    src: rc-local.service
+    dest: /etc/systemd/system
+    mode: "0644"
+    backup: yes
+  register: rc_local_service_output
+
+- name: enable service rc-local and ensure it is not masked
+  systemd:
+    name: rc-local
+    enabled: yes
+    masked: no
+  register: output
+
+- name: Reboot box 
+  reboot:
+    test_command: whoami
+  when: output.changed
+
+- name: Make sure rc-local service is running
+  systemd: 
+    state: started 
+    name: rc-local
+  when: output.changed
+
+- name: Make sure rc-local service is restarted if changed
+  systemd:
+    state: restarted
+    daemon_reload: yes
+    name: rc-local
+  when: watch_incoming_output.changed or rc_local_output.changed or rc_local_service_output.changed

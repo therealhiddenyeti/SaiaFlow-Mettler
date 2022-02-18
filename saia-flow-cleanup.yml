@@ -1,0 +1,19 @@
+---
+- name: Perform File system cleanup on Dimensioners
+  hosts: [dimensioners]
+  #become: yes
+
+  tasks:
+    - name: find all files that are older than three
+      find:
+        paths: /opt/saia_flow/processed
+        age: 30m
+        file_type: file
+      register: processedFiles2Remove
+
+    - name: remove older than 30 minutes days
+      file:
+        path: "{{ item.path }}"
+        state: absent
+      with_items: "{{ processedFiles2Remove.files }}"
+      when: processedFiles2Remove.matched > 0
