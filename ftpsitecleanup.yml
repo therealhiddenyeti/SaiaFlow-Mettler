@@ -1,0 +1,25 @@
+---
+- name: House Keeping old FTP'd files
+  hosts: [ftp_server]
+  vars:
+    directories: ['C:\Temp\Incoming']
+    filepattern: ['*.*']
+    age: 1h
+    
+  tasks:
+    - name: Find Log LogFiles
+      tags: always
+      win_find:
+        paths: "{{directories}}"
+        age: "{{age}}"
+        age_stamp: mtime
+        patterns: "{{filepattern}}"
+        recurse: yes
+      register: filestoremove
+
+    - name: list of files to be removed
+      tags: always
+      vars:
+        files: "{{ filestoremove.files | json_query('[].path') }}"
+      debug: var=files
+      when: filestoremove.matched > 0
