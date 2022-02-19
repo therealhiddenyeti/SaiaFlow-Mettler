@@ -1,17 +1,14 @@
 ---
 - name: House Keeping old FTP'd files
   hosts: [ftp_server]
-  vars:
-    paths: C:\Temp\Incoming
-    filepattern: ['Dimensioner*.*']
-    age: -1h
+
     
   tasks:
     - name: Find Log LogFiles
       tags: always
       win_find:
-        path: "{{paths}}"
-        age: "{{age}}"
+        paths: C:\Temp\Incoming
+        age: -1h
         age_stamp: ctime
         #patterns: "{{filepattern}}"
         #recurse: yes
