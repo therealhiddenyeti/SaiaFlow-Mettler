@@ -22,12 +22,12 @@
     #   when: filestoremove.matched > 0
 
     - name: remove the files found - this would work only when you call the --tags=delete
-      tags: never,delete
+      # tags: never,delete
       # vars:
       #   files: "{{ filestoremove.files | json_query('[].path') }}"
       win_file:
         path: "{{item}}"
         state: absent
       with_items:
-        - "{{ filestoremove.files.path }}"
+        - "{{ filestoremove.files | json_query('[].path') }}"
       when: filestoremove.matched > 0
