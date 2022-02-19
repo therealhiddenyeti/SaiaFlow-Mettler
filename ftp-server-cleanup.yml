@@ -2,7 +2,7 @@
 - name: House Keeping old FTP'd files
   hosts: [ftp_server]
   vars:
-    directories: ['C:\Temp\Incoming']
+    paths: C:\Temp\Incoming
     filepattern: ['Dimensioner*.*']
     age: -1h
     
@@ -10,11 +10,11 @@
     - name: Find Log LogFiles
       tags: always
       win_find:
-        paths: "{{directories}}"
+        path: "{{paths}}"
         age: "{{age}}"
-        age_stamp: mtime
-        patterns: "{{filepattern}}"
-        recurse: yes
+        age_stamp: ctime
+        #patterns: "{{filepattern}}"
+        #recurse: yes
       register: filestoremove
 
     - name: list of files to be removed
