@@ -8,7 +8,7 @@
       tags: always
       win_find:
         paths: C:\Temp\Incoming
-        age: -1h
+        age: "{{ age }}"
         age_stamp: mtime
         #patterns: "{{filepattern}}"
         #recurse: yes
