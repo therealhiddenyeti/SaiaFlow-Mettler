@@ -14,9 +14,20 @@
         #recurse: yes
       register: filestoremove
 
-    - name: list of files to be removed
-      tags: always
+    # - name: list of files to be removed
+    #   tags: always
+    #   vars:
+    #     files: "{{ filestoremove.files | json_query('[].path') }}"
+    #   debug: var=files
+    #   when: filestoremove.matched > 0
+
+    - name: remove the files found - this would work only when you call the --tags=delete
+      tags: never,delete
       vars:
         files: "{{ filestoremove.files | json_query('[].path') }}"
-      debug: var=files
+      win_file:
+        path: "{{item}}"
+        state: absent
+      with_items:
+        - "{{files}}"
       when: filestoremove.matched > 0
