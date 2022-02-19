@@ -9,7 +9,7 @@
       win_find:
         paths: C:\Temp\Incoming
         age: -1h
-        age_stamp: ctime
+        age_stamp: mtime
         #patterns: "{{filepattern}}"
         #recurse: yes
       register: filestoremove
