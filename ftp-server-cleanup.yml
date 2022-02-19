@@ -3,8 +3,8 @@
   hosts: [ftp_server]
   vars:
     directories: ['C:\Temp\Incoming']
-    filepattern: ['*.*']
-    age: 1h
+    filepattern: ['Dimensioner*.*']
+    age: -1h
     
   tasks:
     - name: Find Log LogFiles
