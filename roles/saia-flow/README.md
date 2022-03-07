@@ -4,21 +4,21 @@ saia-flow
 This role supports the installation and configuration of the "saia-flow" solution.
 
 The role will:
-  1. install all required packages
-  2. Create required directories
-  3. Deploy rclone.conf to support the FTP process
-  4. Deploy supporting scripts
-  5. Deploy a rc.local execution file
-  6. Deploy rc-local.service definition
-  7. Enable the rc-local service
-  8. If the changes requires it, reboot the server 
-  9. Make sure rc-local service is running/started
+  1.  Install all required packages
+  2.  Create required directories
+  3.  Deploy rclone.conf to support the FTP process
+  4.  Deploy supporting scripts
+  5.  Deploy a rc.local execution file
+  6.  Deploy rc-local.service definition
+  7.  Enable the rc-local service
+  8.  If the changes requires it, reboot the server 
+  9.  Make sure rc-local service is running/started
   10. Make sure rc-local service is restarted if changed
   
 Requirements
 ------------
 
-This solution expects the Mettler Dimensioner running Ubuntu Server 20.04 and an available installation of InfluxDB.
+This solution expects the Mettler Dimensioner running a version of Ubuntu Server compatible with Ansible and an available installation of InfluxDB.
 
 Role Variables
 --------------
@@ -116,7 +116,7 @@ Example Playbook
     roles:
     - saia-flow 
     
-  # main.yml
+  # roles/aia-flow/tasks/main.yml
   ---
   - name: install saia-flow (may require reboot)
     include_tasks: install.yml
