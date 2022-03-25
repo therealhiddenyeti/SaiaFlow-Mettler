@@ -12,7 +12,7 @@ inotifywait -m -e create -e moved_to --format "%f" $TARGET \
                         startTime=`date +%s%3N`
                         now=$startTime
                         #echo Image from $hostname and Processing $FILENAME, for processing
-                        rclone -—contimeout=30s --retries=1 copy -q  "$TARGET/$FILENAME" saia:
+                        rclone --contimeout=30s --retries=1 copy -q  "$TARGET/$FILENAME" saia:
                         rc=$?
                         if [ $rc -ne 0 ];
                         then
