@@ -25,11 +25,11 @@ influxdb_sh: "{{ base_dir }}/post2InfluxDB.sh"
 
 # packages to deploy
 package_list:
-    - vsftpd=3.0.3-12
-    - inotify-tools=3.14-8
-    - rclone=1.50.2-2
-    - openssl=1.1.1f-1ubuntu2.10
-    - ssl-cert=1.0.39
+    - vsftpd
+    - inotify-tools
+    - rclone
+    - openssl
+    - ssl-cert
 
 # rclone FTP server
 ftp_host: 100.64.47.154
