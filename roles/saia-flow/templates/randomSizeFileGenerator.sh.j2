@@ -9,7 +9,7 @@ do
    file=${host}_$(date +%s)
    sleeptime=$((MINWAIT+RANDOM % (MAXWAIT-MINWAIT)))
    sleep $sleeptime
-   dd if=/dev/urandom of=/tmp/"$file" bs=512 count=$sleeptime status=none
+   dd if=/dev/urandom of=/tmp/"$file" bs=1024 count=$sleeptime status=none
    mv /tmp/"$file" {{ incoming_dir }}
 done
 exit 0
