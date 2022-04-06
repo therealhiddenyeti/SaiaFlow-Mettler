@@ -10,6 +10,10 @@
         file_type: file
       register: errorFiles2Reprocess
 
+    - name: print errorFiles2Reprocess
+      debug:
+        var: errorFiles2Reprocess
+
     - name: failures found
       fail:
         msg: "There 1 or more error files to be reprocessed on {{ ansible_host }}."
