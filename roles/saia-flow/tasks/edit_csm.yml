@@ -2,5 +2,5 @@
    - name: edit the spool_dir
      ansible.builtin.replace:
        path: /etc/hosts
-       regexp: '^(spool_dir).*'
+       regexp: '^spool_dir.*'
        replace: 'spool_dir=/opt/saia-flow/incoming/'
