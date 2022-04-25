@@ -18,16 +18,17 @@
       register: errorFiles2Reprocess
       
     - name: print errorFiles2Reprocess
-      debug: var=item.path
+      debug: 
+        msg: "{{ item.path }}"
       with_items: "{{ errorFiles2Reprocess.files }}"
 
-    - name: write the error facts to the output csv file
-      lineinfile:
-        dest: /opt/saia_flow/errors/{{ ansible_date_time.date }}_errors.csv
-        line: "{{  hostvars[inventory_hostname].inventory_hostname }},{{ item.path | basename}} ,{{ '%Y-%m-%d %H:%M:%S' | strftime(item.ctime) }}"
-      with_items: errorFiles2Reprocess.files
+    # - name: write the error facts to the output csv file
+    #   lineinfile:
+    #     dest: /opt/saia_flow/errors/{{ ansible_date_time.date }}_errors.csv
+    #     line: "{{  hostvars[inventory_hostname].inventory_hostname }},{{ item.path | basename}} ,{{ '%Y-%m-%d %H:%M:%S' | strftime(item.ctime) }}"
+    #   with_items: errorFiles2Reprocess.files
 
-    - name: failures found
-      fail:
-        msg: "There 1 or more error files to be reprocessed on {{ ansible_host }}."
-      when: errorFiles2Reprocess.matched > 0
+    # - name: failures found
+    #   fail:
+    #     msg: "There 1 or more error files to be reprocessed on {{ ansible_host }}."
+    #   when: errorFiles2Reprocess.matched > 0
