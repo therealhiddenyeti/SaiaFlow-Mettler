@@ -1,3 +1,7 @@
 ---
+
+- name: edit the csm.ini
+  include_task: edit_csm.yml
+  
 - name: install saia-flow (may require reboot)
   include_tasks: install.yml
