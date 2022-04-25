@@ -11,6 +11,7 @@ base_dir: /opt/saia_flow
 incoming_dir: /opt/saia_flow/incoming/
 processed_dir: /opt/saia_flow/processed/
 errors_dir: /opt/saia_flow/errors/
+failures_dir: /opt/saia_flow/failure_data/
 
 directory_list:
   - "{{ rclone_dir }}"
