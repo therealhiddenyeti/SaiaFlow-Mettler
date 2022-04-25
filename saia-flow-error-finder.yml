@@ -16,16 +16,16 @@
         paths: /opt/saia_flow/errors/
         file_type: file
       register: errorFiles2Reprocess
+      
+    - name: print errorFiles2Reprocess
+      debug:
+        var: errorFiles2Reprocess
 
     - name: write the error facts to the output csv file
       lineinfile:
         dest: /etc/netbox/netboxImport.csv
-        line: "{{  hostvars[inventory_hostname].inventory_hostname }},{{ item.path | basename }},{{ '%Y-%m-%d %H:%M:%S' | strftime(item.ctime) }}"
+        line: "{{  hostvars[inventory_hostname].inventory_hostname }},{{ item[].path | basename }},{{ '%Y-%m-%d %H:%M:%S' | strftime(item[].ctime) }}"
       with_items: errorFiles2Reprocess.files
-
-    # - name: print errorFiles2Reprocess
-    #   debug:
-    #     var: errorFiles2Reprocess
 
     - name: failures found
       fail:
