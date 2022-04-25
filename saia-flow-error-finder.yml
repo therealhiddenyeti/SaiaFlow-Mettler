@@ -20,7 +20,7 @@
     - name: print errorFiles2Reprocess
       debug:
         var: "{{ item.path }}"
-      with_items: {{ errorFiles2Reprocess.files }}
+      with_items: "{{ errorFiles2Reprocess.files }}"
 
     # - name: write the error facts to the output csv file
     #   lineinfile:
