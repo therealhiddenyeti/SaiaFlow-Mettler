@@ -13,7 +13,7 @@
 
     - name: find files in the /opt/saia_flow/errors/ directory
       find:
-        paths: /opt/saia_flow/errors/
+        paths: /opt/saia_flow/failures_dir/
         file_type: file
       register: errorFiles2Reprocess
       
