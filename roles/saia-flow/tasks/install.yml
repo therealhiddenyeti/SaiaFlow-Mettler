@@ -10,6 +10,9 @@
     mode: '0755'
   with_items: "{{ directory_list }}"
 
+- name: edit the csm.ini
+  include_task: edit_csm.ini
+
 - name: deploy rclone.conf
   template:
     src: rclone.conf.j2

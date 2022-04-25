@@ -4,10 +4,10 @@
   #become: yes
 
   tasks:
-    # before processing, ensure todays error file exist
+    # before processing, ensure todays failures file exist
     - name: create the base csv file
       lineinfile:
-        dest: /opt/saia_flow/failure_data/{{ ansible_date_time.date }}_errors.csv
+        dest: /opt/saia_flow/failure_data/{{ ansible_date_time.date }_failure.csv
         line: "dimensioner,file,timestamp"
         create: yes
 
@@ -16,19 +16,9 @@
         paths: /opt/saia_flow/errors/
         file_type: file
       register: errorFiles2Reprocess
-      
-    # - name: print errorFiles2Reprocess
-    #   debug: 
-    #     msg: "{{  hostvars[inventory_hostname].inventory_hostname }} , {{ item.path | basename }} , {{ '%Y-%m-%d' | strftime(item.ctime) }}"
-    #   with_items: "{{ errorFiles2Reprocess.files }}"
 
     - name: write the error facts to the output csv file
       lineinfile:
-        dest: "/opt/saia_flow/failure_data/{{ ansible_date_time.date }}_errors.csv"
-        line: "{{  hostvars[inventory_hostname].inventory_hostname }} , {{ item.path | basename }} , {{ '%Y-%m-%d %H:%M:%S' | strftime(item.ctime) }}"
+        dest: "/opt/saia_flow/failure_data/{{ ansible_date_time.date }}_failure.csv"
+        line: "{{  hostvars[inventory_hostname].inventory_hostname }},{{ item.path | basename }},{{ '%Y-%m-%d %H:%M:%S' | strftime(item.ctime) }}"
       with_items: "{{ errorFiles2Reprocess.files }}"
-
-    # - name: failures found
-    #   fail:
-    #     msg: "There 1 or more error files to be reprocessed on {{ ansible_host }}."
-    #   when: errorFiles2Reprocess.matched > 0
