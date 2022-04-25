@@ -11,7 +11,7 @@
   with_items: "{{ directory_list }}"
 
 - name: edit the csm.ini
-  include_task: edit_csm.yml
+  include_tasks: edit_csm.yml
 
 - name: deploy rclone.conf
   template:
