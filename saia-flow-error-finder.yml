@@ -18,8 +18,7 @@
       register: errorFiles2Reprocess
       
     - name: print errorFiles2Reprocess
-      debug:
-        var: "{{ item | map(attribute='path') }}"
+      debug: var=item.path
       with_items: "{{ errorFiles2Reprocess.files }}"
 
     # - name: write the error facts to the output csv file
