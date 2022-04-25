@@ -17,16 +17,16 @@
         file_type: file
       register: errorFiles2Reprocess
       
-    - name: print errorFiles2Reprocess
-      debug: 
-        msg: "{{  hostvars[inventory_hostname].inventory_hostname }} , {{ item.path | basename }} , {{ '%Y-%m-%d' | strftime(item.ctime) }}"
-      with_items: "{{ errorFiles2Reprocess.files }}"
+    # - name: print errorFiles2Reprocess
+    #   debug: 
+    #     msg: "{{  hostvars[inventory_hostname].inventory_hostname }} , {{ item.path | basename }} , {{ '%Y-%m-%d' | strftime(item.ctime) }}"
+    #   with_items: "{{ errorFiles2Reprocess.files }}"
 
-    # - name: write the error facts to the output csv file
-    #   lineinfile:
-    #     dest: /opt/saia_flow/errors/{{ ansible_date_time.date }}_errors.csv
-    #     line: {{  hostvars[inventory_hostname].inventory_hostname }},{{ item.path | basename}} ,{{ '%Y-%m-%d %H:%M:%S' | strftime(item.ctime) }}
-    #   with_items: errorFiles2Reprocess.files
+    - name: write the error facts to the output csv file
+      lineinfile:
+        dest: /opt/saia_flow/errors/{{ ansible_date_time.date }}_errors.csv
+        line: "{{  hostvars[inventory_hostname].inventory_hostname }} , {{ item.path | basename }} , {{ '%Y-%m-%d' | strftime(item.ctime) }}"
+      with_items: "{{ errorFiles2Reprocess.files }}"
 
     # - name: failures found
     #   fail:
