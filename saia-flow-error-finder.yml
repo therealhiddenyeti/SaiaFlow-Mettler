@@ -7,7 +7,7 @@
     # before processing, ensure todays failures file exist
     - name: create the base csv file
       lineinfile:
-        dest: /opt/saia_flow/failure_data/{{ ansible_date_time.date }_failure.csv
+        dest: /opt/saia_flow/failure_data/{{ ansible_date_time.date }}_failure.csv
         line: "dimensioner,file,timestamp"
         create: yes
 
