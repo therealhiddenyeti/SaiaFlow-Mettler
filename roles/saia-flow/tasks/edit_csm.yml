@@ -10,7 +10,7 @@
      ansible.builtin.replace:
        path: /opt/saia_flow/config/csm.ini
        regexp: '(?:directory=\/dimensioner\/)'
-       replace: 'spool_dir=/opt/saia-flow/incoming/'
+       replace: 'directory=/opt/saia-flow/incoming/'
 
    - name: edit the local ftp address
      ansible.builtin.replace:
