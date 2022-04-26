@@ -33,10 +33,11 @@ package_list:
     - ssl-cert
 
 # rclone FTP server
-ftp_host: 100.64.47.154
+ftp_host: dimftp.saia.com
 ftp_user: anonymous
 ftp_port: 21
-ftp_pass: odSAK0Fe4SX8wyCdL2cHrmx8DdyV_nZMWY1M3A
+ftp_pass: UesMorw2iw3iFJLB
 ftp_tls: false
 ftp_concurrency: 0
 ftp_no_check_certificate: true
+#remote:/dimensioner/

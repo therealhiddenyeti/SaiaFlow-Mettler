@@ -1,6 +1,21 @@
 
-   - name: edit the spool_dir
+
+   - name: Backup orginal file
+     ansible.builtin.copy:
+       src: /opt/saia_flow/config/csm.ini
+       dest: /opt/saia_flow/config/csm.ini_{{ ansible_date_time }}.bkup
+
+   - name: edit the local ftp dir
      ansible.builtin.replace:
        path: /opt/saia_flow/config/csm.ini
-       regexp: '^spool_dir.*'
+       regexp: '(?:directory=\/dimensioner\/)'
        replace: 'spool_dir=/opt/saia-flow/incoming/'
+
+   - name: edit the local ftp address
+     ansible.builtin.replace:
+       path: /opt/saia_flow/config/csm.ini
+       regexp: '(?:address=dimftp.saia.com)'
+       replace: 'address=127.0.0.1'
+
+
+
