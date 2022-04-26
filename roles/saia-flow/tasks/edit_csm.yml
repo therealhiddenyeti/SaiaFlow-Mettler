@@ -3,9 +3,9 @@
    - name: Backup orginal file
      ansible.builtin.copy:
        src: /opt/saia_flow/config/csm.ini
-       dest: /opt/saia_flow/config/csm.ini_{{ ansible_date_time }}.bkup
+       dest: /opt/saia_flow/config/csm.ini.bkup
        remote_src: yes
-       
+
    - name: edit the local ftp dir
      ansible.builtin.replace:
        path: /opt/saia_flow/config/csm.ini
